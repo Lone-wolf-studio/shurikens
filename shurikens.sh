@@ -44,8 +44,15 @@ function create_django_project(){
 
 
 function install_flask(){
-    echo "${green_text}Installing flask in environment: $env_name"
-    $HOME/${env_name}/bin/pip install flask
+    if [ ! -z "$frame_work_version" ]
+    then
+        echo "${green_text}Installing flask version $frame_work_version in environment $env_name"
+        $HOME/${env_name}/bin/pip install flask==$frame_work_version
+    else
+        echo "${green_text}Installing updated flask version in environment: $env_name"
+        $HOME/${env_name}/bin/pip install flask    
+    fi
+    
 }
 
 
