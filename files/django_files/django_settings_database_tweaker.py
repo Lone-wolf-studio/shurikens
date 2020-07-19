@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import os
-from django_files.settings import DATABASES
+from .settings import DATABASES
 
 settings_file_path = os.environ['project_settings_path'] + '/' + 'settings.py'
 database = os.environ['database']

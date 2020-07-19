@@ -23,8 +23,10 @@ done
 
 environment_variable="env"
 env_name="${project_name}${environment_variable}"
-project_root_path="$HOME/${project_name}"
+project_root_path="${HOME}/${project_name}"
 project_settings_path="${project_root_path}/${project_name}" 
+
+echo "${project_settings_path}"
 
 function create_virtualenvironment(){
     echo "${green_text}creating virtual environment $env_name"
@@ -53,11 +55,13 @@ function django_project_setup(){
     (cd $HOME/${project_name}/static ; mkdir js && mkdir img && mkdir css)
     
     echo "${green_text}======Changing templates Settings for ${project_name}======"
-    chmod 755 ./files/django_files/django_settings_template_tweaker.py 
+    chmod 755 ./files/django_files/django_settings_template_tweaker.py
+    (source $HOME/${env_name}/bin/activate && $HOME/${env_name}/bin/python3 ./files/django_files/django_settings_template_tweaker.py) 
     sleep 5
 
     echo "${green_text}======Changing database Settings for ${project_name}======"
     chmod 755 ./files/django_files/django_settings_database_tweaker.py
+    (source $HOME/${env_name}/bin/activate && $HOME/${env_name}/bin/python3 ./files/django_files/django_settings_database_tweaker.py)
     sleep 5
 }
 
@@ -88,13 +92,9 @@ function create_database(){
 }
 
 function export_bash_variables(){
+
     echo "${green_text}======Exporting path variables======"
-    export $project_name
-    export $database_name
-    export $mysql_user
-    export $mysql_password
-    export $project_root_path
-    export $project_settings_path
+    (source $HOME/${env_name}/bin/activate && export $project_name && export $database_name && export $mysql_user && export $mysql_password && export project_root_path="${HOME}/${project_name}" && export project_settings_path="${HOME}/${project_name}/${project_name}")
 }
 
 function main(){
