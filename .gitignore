@@ -1,0 +1,3 @@
+.files/__pycache__
+.files/django_files/__pycache__
+.files/flask_files/__pycache__

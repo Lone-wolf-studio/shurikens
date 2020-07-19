@@ -54,9 +54,11 @@ function django_project_setup(){
     
     echo "${green_text}======Changing templates Settings for ${project_name}======"
     chmod 755 ./files/django_files/django_settings_template_tweaker.py 
-    
+    sleep 5
+
     echo "${green_text}======Changing database Settings for ${project_name}======"
     chmod 755 ./files/django_files/django_settings_database_tweaker.py
+    sleep 5
 }
 
 function django_database_migrate(){
