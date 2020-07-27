@@ -97,6 +97,10 @@ function export_bash_variables(){
     (source $HOME/${env_name}/bin/activate && export $project_name && export $database_name && export $mysql_user && export $mysql_password && export project_root_path="${HOME}/${project_name}" && export project_settings_path="${HOME}/${project_name}/${project_name}")
 }
 
+function create_docker_file(){
+    (cd $HOME/${project_name} ; echo "FROM ubuntu:18.04" > Dockerfile)
+}
+
 function main(){
     if  [ ! "$frame_work" ] || [ ! "$project_name" ] || [ ! "$database" ] 
     then
