@@ -82,6 +82,16 @@ function install_flask(){
     
 }
 
+function create_flask_project(){
+    echo "${green_text}======Creating flask project ${project_name}======" 
+    (cd $HOME ; mkdir ${project_name})   
+}
+
+function flask_project_setup(){
+    echo "${green_text}======Setting up flask project ${project_name}======"
+    (cd $HOME/${project_name} ; cp ./files/flask_files/flask_function_routes.py app.py)
+}
+
 function create_database(){
     if ["$database" == mysql]
     then
