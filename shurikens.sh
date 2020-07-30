@@ -103,6 +103,10 @@ function install_fastapi(){
     fi
 }
 
+function fastapi_project_setup(){
+    echo "${green_text}======Setting up fastapi project ${project_name}======"
+    (cd $HOME/${project_name} ; cp .files/fastapi_files/fast_api_routes.py api.py)
+
 function create_database(){
     if ["$database" == mysql]
     then
