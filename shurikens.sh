@@ -39,10 +39,10 @@ function install_django(){
         echo "${green_text}======Installing django version $frame_work_version in environment ${env_name}======"
         $HOME/${env_name}/bin/pip install django==$frame_work_version
     else
-        echo "${green_text}======Installing update django version in environment: ${env_name}======"
+        echo "${green_text}======Installing updated django version in environment: ${env_name}======"
         $HOME/${env_name}/bin/pip install django    
     fi
-}    
+}
 
 function create_django_project(){
     echo "${green_text}======Creating django project ${project_name}======" 
@@ -92,6 +92,17 @@ function flask_project_setup(){
     (cd $HOME/${project_name} ; cp ./files/flask_files/flask_function_routes.py app.py)
 }
 
+function install_fastapi(){
+    if [ ! -z "$frame_work_version" ]
+    then
+        echo "${green_text}======Installing fast api version $frame_work_version in environment ${env_name}======"
+        ($HOME/${env_name}/bin/pip install fastapi==$frame_work_version && $HOME/${env_name}/bin/pip install uvicorn)  
+    else
+        echo "${green_text}======Installing updated fastapi version in environment: ${env_name}======"
+        ($HOME/${env_name}/bin/pip install fastapi && $HOME/${env_name}/bin/pip install uvicorn)   
+    fi
+}
+
 function create_database(){
     if ["$database" == mysql]
     then
@@ -137,7 +148,10 @@ function main(){
             django_database_migrate
             ;;
         flask)
-            install_flask    
+            install_flask
+            ;;    
+        fastapi)
+            install_fastapi    
     esac
     }
 
