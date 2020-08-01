@@ -44,6 +44,12 @@ function install_django(){
     fi
 }
 
+# list of supporting packages needed for a typical django project
+function install_django_support_packages(){
+    # mysqlclient   
+    ($HOME/${env_name}/bin/pip install mysqlclient)
+}
+
 function create_django_project(){
     echo "${green_text}======Creating django project ${project_name}======" 
     (cd $HOME ; django-admin.py startproject ${project_name})   
@@ -128,7 +134,7 @@ function create_docker_file(){
 
 function create_requirements_dot_txt_file(){
     (cd $HOME/${project_name} ; echo "pip3 freeze" > requirements.txt)
-}    
+}
 
 function main(){
     if  [ ! "$frame_work" ] || [ ! "$project_name" ] || [ ! "$database" ] 
