@@ -48,6 +48,8 @@ function install_django(){
 function install_django_support_packages(){
     # mysqlclient   
     ($HOME/${env_name}/bin/pip install mysqlclient)
+    # Image uploads based operations Pillow
+    ($HOME/${env_name}/bin/pip install Pillow)
 }
 
 function create_django_project(){
