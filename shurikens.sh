@@ -90,6 +90,31 @@ function install_flask(){
     
 }
 
+# list of supporting packages needed for a typical flask project
+function install_flask_support_packages(){
+    #sql alchemy 	
+    echo "${green_text}======Installing sql alchemy======"
+    ($HOME/${env_name}/bin/pip install Flask-SQLAlchemy)
+    # flask migrate
+    echo "${green_text}======Installing flask migrate======"
+    ($HOME/${env_name}/bin/pip install Flask-Migrate)
+
+    case $database in
+        mysql)
+            echo "${green_text}======Installing flask mysql======"
+            ($HOME/${env_name}/bin/pip flask-mysql)
+            ;;
+        postgresql)
+            echo "${green_text}======Installing flask postgresql======"
+            ($HOME/${env_name}/bin/pip psycopg2)
+            ;;    
+        mongodb)
+            echo "${green_text}======Installing flask pymongo======"
+            ($HOME/${env_name}/bin/pip Flask-PyMongo)    
+    esac
+
+}
+
 function create_flask_project(){
     echo "${green_text}======Creating flask project ${project_name}======" 
     (cd $HOME ; mkdir ${project_name})   
