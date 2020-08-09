@@ -149,6 +149,12 @@ function create_database(){
 
 }
 
+function generic_supporting_packages(){
+    # locust for load testing
+    echo "${green_text}======Installing locust======"
+    ($HOME/${env_name}/bin/pip locust)
+}
+
 function export_bash_variables(){
 
     echo "${green_text}======Exporting path variables======"
@@ -183,12 +189,17 @@ function main(){
             create_database
             sleep 3
             django_database_migrate
+            sleep 3
+            generic_supporting_packages
+            sleep 3
             ;;
         flask)
             install_flask
+            generic_supporting_packages
             ;;    
         fastapi)
             install_fastapi    
+            generic_supporting_packages
     esac
     }
 
