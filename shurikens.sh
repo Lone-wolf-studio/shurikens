@@ -142,6 +142,9 @@ function install_fastapi(){
 function fastapi_project_setup(){
     echo "${green_text}======Setting up fastapi project ${project_name}======"
     (cd $HOME/${project_name} ; cp .files/fastapi_files/fast_api_routes.py api.py)
+    echo "${green_text}======Setting up models boilerblate file for ${project_name}======"
+    (cd $HOME/${project_name} ; cp ./files/flask_files/models.py models.py)
+}
 
 function create_database(){
     if ["$database" == mysql]
