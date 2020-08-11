@@ -123,6 +123,9 @@ function create_flask_project(){
 function flask_project_setup(){
     echo "${green_text}======Setting up flask project ${project_name}======"
     (cd $HOME/${project_name} ; cp ./files/flask_files/flask_function_routes.py app.py)
+    echo "${green_text}======Setting up models boilerblate file for ${project_name}======"
+    (cd $HOME/${project_name} ; cp ./files/flask_files/models.py models.py)
+
 }
 
 function install_fastapi(){
