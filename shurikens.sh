@@ -17,6 +17,7 @@ while getopts ":f:fv:p:d:" arg; do
         f) frame_work=$OPTARG;;
         p) project_name=$OPTARG;;
         d) database=$OPTARG;;
+        0) orm=$OPTARG;;
         fv) frame_work_version=$OPTARG;;
     esac
 done
@@ -152,7 +153,6 @@ function create_database(){
         echo "${green_text}======Creating Mysql database======"
         mysql -u${mysql_user} -p${mysql_password} -e "create database ${project_name}"
     fi    
-
 }
 
 function generic_supporting_packages(){
@@ -187,20 +187,17 @@ function main(){
     case $frame_work in
         django)
             install_django
-            sleep 3
             create_django_project
-            sleep 3
             django_project_setup
-            sleep 3
             create_database
-            sleep 3
             django_database_migrate
-            sleep 3
             generic_supporting_packages
-            sleep 3
             ;;
         flask)
             install_flask
+            create_flask_project
+            flask_project_setup
+            install_flask_support_packages
             generic_supporting_packages
             ;;    
         fastapi)
