@@ -110,15 +110,15 @@ function install_flask_support_packages(){
     case $database in
         mysql)
             echo "${green_text}======Installing flask mysql======"
-            ($HOME/${env_name}/bin/pip flask-mysql)
+            ($HOME/${env_name}/bin/pip install flask-mysql)
             ;;
         postgresql)
             echo "${green_text}======Installing flask postgresql======"
-            ($HOME/${env_name}/bin/pip psycopg2)
+            ($HOME/${env_name}/bin/pip install psycopg2)
             ;;    
         mongodb)
             echo "${green_text}======Installing flask pymongo======"
-            ($HOME/${env_name}/bin/pip Flask-PyMongo)    
+            ($HOME/${env_name}/bin/pip install Flask-PyMongo)    
     esac
 
 }
@@ -132,10 +132,9 @@ function create_flask_project(){
 # function to create flask project setup
 function flask_project_setup(){
     echo "${green_text}======Setting up flask project ${project_name}======"
-    (cd $HOME/${project_name} ; cp ./files/flask_files/flask_function_routes.py app.py)
+    cp $PWD/files/flask_files/flask_function_routes.py $HOME/${project_name}/api.py
     echo "${green_text}======Setting up models boilerblate file for ${project_name}======"
-    (cd $HOME/${project_name} ; cp ./files/flask_files/models.py models.py)
-
+    cp $PWD/files/flask_files/models.py $HOME/${project_name}/models.py
 }
 
 function install_fastapi(){
