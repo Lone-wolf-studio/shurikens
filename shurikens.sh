@@ -8,8 +8,10 @@ green_text=`tput setaf 2`
 mysql_user="root"
 mysql_password="root"
 
+# helper description which will give instructions to run the script
 function usage_instruction(){
     echo "bash shurikens.sh -f <framework_name> -p <project_name> -d <database_name>"
+    echo "database options are mysql, postgresql, mongodb make sure give the same name after -d" 
     }
 
 while getopts ":f:fv:p:d:" arg; do
@@ -29,11 +31,13 @@ project_settings_path="${project_root_path}/${project_name}"
 
 echo "${project_settings_path}"
 
+# function to create virtualenvironment
 function create_virtualenvironment(){
     echo "${green_text}creating virtual environment $env_name"
     (cd $HOME ; virtualenv -p python3 ${env_name})
 }
-	
+
+# function to install django	
 function install_django(){
     if [ ! -z "$frame_work_version" ]
     then
@@ -53,11 +57,13 @@ function install_django_support_packages(){
     ($HOME/${env_name}/bin/pip install Pillow)
 }
 
+# function to create django project
 function create_django_project(){
     echo "${green_text}======Creating django project ${project_name}======" 
     (cd $HOME ; django-admin.py startproject ${project_name})   
 }
 
+# function to create django project setup
 function django_project_setup(){
     echo "${green_text}======Setting up django project ${project_name}======"
     (cd $HOME/${project_name} ; mkdir templates && mkdir static)
@@ -74,11 +80,12 @@ function django_project_setup(){
     sleep 5
 }
 
+# function to do databasee migrations for django
 function django_database_migrate(){
     (chmod 755 $HOME/${project_name}/manage.py makemigrations && chmod 755 $HOME/${project_name}/manage.py migrate)
 }
 
-
+# function to install flask
 function install_flask(){
     if [ ! -z "$frame_work_version" ]
     then
@@ -116,11 +123,13 @@ function install_flask_support_packages(){
 
 }
 
+# function to create flask project
 function create_flask_project(){
     echo "${green_text}======Creating flask project ${project_name}======" 
     (cd $HOME ; mkdir ${project_name})   
 }
 
+# function to create flask project setup
 function flask_project_setup(){
     echo "${green_text}======Setting up flask project ${project_name}======"
     (cd $HOME/${project_name} ; cp ./files/flask_files/flask_function_routes.py app.py)
