@@ -3,6 +3,7 @@
 # text colors
 red_text=`tput setaf 1`
 green_text=`tput setaf 2`
+blue_text=`tput setaf 4`
 
 # credentials
 mysql_user="root"
@@ -33,7 +34,7 @@ echo "${project_settings_path}"
 
 # function to create virtualenvironment
 function create_virtualenvironment(){
-    echo "${green_text}creating virtual environment $env_name"
+    echo "${blue_text}creating virtual environment $env_name"
     (cd $HOME ; virtualenv -p python3 ${env_name})
 }
 
@@ -41,10 +42,10 @@ function create_virtualenvironment(){
 function install_django(){
     if [ ! -z "$frame_work_version" ]
     then
-        echo "${green_text}======Installing django version $frame_work_version in environment ${env_name}======"
+        echo "${blue_text}======Installing django version $frame_work_version in environment ${env_name}======"
         $HOME/${env_name}/bin/pip install django==$frame_work_version
     else
-        echo "${green_text}======Installing updated django version in environment: ${env_name}======"
+        echo "${blue_text}======Installing updated django version in environment: ${env_name}======"
         $HOME/${env_name}/bin/pip install django    
     fi
 }
@@ -59,22 +60,22 @@ function install_django_support_packages(){
 
 # function to create django project
 function create_django_project(){
-    echo "${green_text}======Creating django project ${project_name}======" 
+    echo "${blue_text}======Creating django project ${project_name}======" 
     (cd $HOME ; django-admin.py startproject ${project_name})   
 }
 
 # function to create django project setup
 function django_project_setup(){
-    echo "${green_text}======Setting up django project ${project_name}======"
+    echo "${blue_text}======Setting up django project ${project_name}======"
     (cd $HOME/${project_name} ; mkdir templates && mkdir static)
     (cd $HOME/${project_name}/static ; mkdir js && mkdir img && mkdir css)
     
-    echo "${green_text}======Changing templates Settings for ${project_name}======"
+    echo "${blue_text}======Changing templates Settings for ${project_name}======"
     chmod 755 ./files/django_files/django_settings_template_tweaker.py
     (source $HOME/${env_name}/bin/activate && $HOME/${env_name}/bin/python3 ./files/django_files/django_settings_template_tweaker.py) 
     sleep 5
 
-    echo "${green_text}======Changing database Settings for ${project_name}======"
+    echo "${blue_text}======Changing database Settings for ${project_name}======"
     chmod 755 ./files/django_files/django_settings_database_tweaker.py
     (source $HOME/${env_name}/bin/activate && $HOME/${env_name}/bin/python3 ./files/django_files/django_settings_database_tweaker.py)
     sleep 5
@@ -89,10 +90,10 @@ function django_database_migrate(){
 function install_flask(){
     if [ ! -z "$frame_work_version" ]
     then
-        echo "${green_text}======Installing flask version ${frame_work_version} in environment ${env_name}======"
+        echo "${blue_text}======Installing flask version ${frame_work_version} in environment ${env_name}======"
         $HOME/${env_name}/bin/pip install flask==$frame_work_version
     else
-        echo "${green_text}======Installing updated flask version in environment: ${env_name}======"
+        echo "${blue_text}======Installing updated flask version in environment: ${env_name}======"
         $HOME/${env_name}/bin/pip install flask    
     fi
     
@@ -101,23 +102,23 @@ function install_flask(){
 # list of supporting packages needed for a typical flask project
 function install_flask_support_packages(){
     #sql alchemy 	
-    echo "${green_text}======Installing sql alchemy======"
+    echo "${blue_text}======Installing sql alchemy======"
     ($HOME/${env_name}/bin/pip install Flask-SQLAlchemy)
     # flask migrate
-    echo "${green_text}======Installing flask migrate======"
+    echo "${blue_text}======Installing flask migrate======"
     ($HOME/${env_name}/bin/pip install Flask-Migrate)
 
     case $database in
         mysql)
-            echo "${green_text}======Installing flask mysql======"
+            echo "${blue_text}======Installing flask mysql======"
             ($HOME/${env_name}/bin/pip install flask-mysql)
             ;;
         postgresql)
-            echo "${green_text}======Installing flask postgresql======"
+            echo "${blue_text}======Installing flask postgresql======"
             ($HOME/${env_name}/bin/pip install psycopg2)
             ;;    
         mongodb)
-            echo "${green_text}======Installing flask pymongo======"
+            echo "${blue_text}======Installing flask pymongo======"
             ($HOME/${env_name}/bin/pip install Flask-PyMongo)    
     esac
 
@@ -125,58 +126,59 @@ function install_flask_support_packages(){
 
 # function to create flask project
 function create_flask_project(){
-    echo "${green_text}======Creating flask project ${project_name}======" 
+    echo "${blue_text}======Creating flask project ${project_name}======" 
     (cd $HOME ; mkdir ${project_name})   
 }
 
 # function to create flask project setup
 function flask_project_setup(){
-    echo "${green_text}======Setting up flask project ${project_name}======"
+    echo "${blue_text}======Setting up flask project ${project_name}======"
     cp $PWD/files/flask_files/flask_function_routes.py $HOME/${project_name}/api.py
-    echo "${green_text}======Setting up models boilerblate file for ${project_name}======"
+    echo "${blue_text}======Setting up models boilerblate file for ${project_name}======"
     cp $PWD/files/flask_files/models.py $HOME/${project_name}/models.py
 }
 
 function install_fastapi(){
     if [ ! -z "$frame_work_version" ]
     then
-        echo "${green_text}======Installing fast api version $frame_work_version in environment ${env_name}======"
+        echo "${blue_text}======Installing fast api version $frame_work_version in environment ${env_name}======"
         ($HOME/${env_name}/bin/pip install fastapi==$frame_work_version && $HOME/${env_name}/bin/pip install uvicorn)  
     else
-        echo "${green_text}======Installing updated fastapi version in environment: ${env_name}======"
+        echo "${blue_text}======Installing updated fastapi version in environment: ${env_name}======"
         ($HOME/${env_name}/bin/pip install fastapi && $HOME/${env_name}/bin/pip install uvicorn)   
     fi
 }
 
 function fastapi_project_setup(){
-    echo "${green_text}======Setting up fastapi project ${project_name}======"
+    echo "${blue_text}======Setting up fastapi project ${project_name}======"
     (cd $HOME/${project_name} ; cp .files/fastapi_files/fast_api_routes.py api.py)
-    echo "${green_text}======Setting up models boilerblate file for ${project_name}======"
+    echo "${blue_text}======Setting up models boilerblate file for ${project_name}======"
     (cd $HOME/${project_name} ; cp ./files/flask_files/models.py models.py)
 }
 
 function create_database(){
     if ["$database" == mysql]
     then
-        echo "${green_text}======Creating Mysql database======"
+        echo "${blue_text}======Creating Mysql database======"
         mysql -u${mysql_user} -p${mysql_password} -e "create database ${project_name}"
     fi    
 }
 
 function generic_supporting_packages(){
     # locust for load testing
-    echo "${green_text}======Installing locust======"
-    ($HOME/${env_name}/bin/pip locust)
+    echo "${blue_text}======Installing locust======"
+    ($HOME/${env_name}/bin/pip install locust)
 }
 
 function export_bash_variables(){
 
-    echo "${green_text}======Exporting path variables======"
+    echo "${blue_text}======Exporting path variables======"
     (source $HOME/${env_name}/bin/activate && export $project_name && export $database_name && export $mysql_user && export $mysql_password && export project_root_path="${HOME}/${project_name}" && export project_settings_path="${HOME}/${project_name}/${project_name}")
 }
 
 function create_docker_file(){
-    (cd $HOME/${project_name} ; echo "FROM ubuntu:18.04" > Dockerfile)
+    echo "${blue_text}======Creating docker file======"
+    cp $PWD/files/Dockerfile $HOME/${project_name}/Dockerfile
 }
 
 function create_requirements_dot_txt_file(){
@@ -207,6 +209,8 @@ function main(){
             flask_project_setup
             install_flask_support_packages
             generic_supporting_packages
+            create_requirements_dot_txt_file
+            create_docker_file
             ;;    
         fastapi)
             install_fastapi    
