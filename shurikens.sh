@@ -185,6 +185,11 @@ function create_requirements_dot_txt_file(){
     (cd $HOME/${project_name} ; echo "pip3 freeze" > requirements.txt)
 }
 
+function create_helper_bash_scripts(){
+    cp $PWD/files/flask_files/helper-bash-scripts $HOME/${project_name}/
+}    
+
+
 function main(){
     if  [ ! "$frame_work" ] || [ ! "$project_name" ] || [ ! "$database" ] 
     then
