@@ -136,6 +136,8 @@ function flask_project_setup(){
     cp $PWD/files/flask_files/flask_function_routes.py $HOME/${project_name}/api.py
     echo "${blue_text}======Setting up models boilerblate file for ${project_name}======"
     cp $PWD/files/flask_files/models.py $HOME/${project_name}/models.py
+    echo "${blue_text}======Setting up configuration for ${project_name}======"
+    cp $PWD/files/flask_files/configuration.py $HOME/${project_name}/configuration.py
 }
 
 function install_fastapi(){
