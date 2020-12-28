@@ -134,10 +134,12 @@ function create_flask_project(){
 function flask_project_setup(){
     echo "${blue_text}======Setting up flask project ${project_name}======"
     cp $PWD/files/flask_files/flask_function_routes.py $HOME/${project_name}/api.py
-    echo "${blue_text}======Setting up models boilerblate file for ${project_name}======"
+    echo "${blue_text}======Setting up models boilerplate file for ${project_name}======"
     cp $PWD/files/flask_files/models.py $HOME/${project_name}/models.py
     echo "${blue_text}======Setting up configuration for ${project_name}======"
     cp $PWD/files/flask_files/configuration.py $HOME/${project_name}/configuration.py
+    echo "${blue_text}======Setting up errorhandler boilerplate for ${project_name}======"
+    cp $PWD/files/flask_files/error_handlers.py $HOME/${project_name}/error_handlers.py
 }
 
 function install_fastapi(){
