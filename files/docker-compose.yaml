@@ -1,0 +1,10 @@
+version: "<version_name"
+services:
+  <service_name>:
+    image:  <image_url>
+    # For orchestrating locally built image
+    build: .
+    env_file:
+      - <env_file_name>.env
+    ports:
+      - "8000:8000"

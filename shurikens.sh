@@ -180,9 +180,11 @@ function export_bash_variables(){
     (source $HOME/${env_name}/bin/activate && export $project_name && export $database_name && export $mysql_user && export $mysql_password && export project_root_path="${HOME}/${project_name}" && export project_settings_path="${HOME}/${project_name}/${project_name}")
 }
 
-function create_docker_file(){
+function create_docker_file_and_compose_file(){
     echo "${blue_text}======Creating docker file======"
     cp $PWD/files/Dockerfile $HOME/${project_name}/Dockerfile
+    echo "${blue_text}======Creating docker-compose file======"
+    cp $PWD/files/Dockerfile $HOME/${project_name}/docker-compose.yaml
 }
 
 function create_requirements_dot_txt_file(){
