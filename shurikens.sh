@@ -9,6 +9,20 @@ blue_text=`tput setaf 4`
 mysql_user="root"
 mysql_password="root"
 
+# function to get project name, framework name, database name from user input
+function get_details_from_user(){
+    read -p "Enter Projectname : " project_name
+    read -p "Enter framework : (options flask, django, fast api) " framework_name
+    read -p "Would like to specify framework version (Y/N): " confirm  
+    if [[ "$confirm" =~ ^([yY][eE][sS]|[yY])$ ]]
+    then
+        read -p "Enter $framework_name version : " framework_version
+    fi    
+    read -p "Enter database : (options mysql, postgresql, mongodb) " database
+
+    
+}
+
 # helper description which will give instructions to run the script
 function usage_instruction(){
     echo "bash shurikens.sh -f <framework_name> -p <project_name> -d <database_name>"
@@ -229,4 +243,7 @@ function main(){
     esac
     }
 
-main    
+main
+
+ 
+
