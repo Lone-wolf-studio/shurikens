@@ -15,16 +15,19 @@ function get_details_from_user(){
         continue
     done
      
-    until read -r -p "Enter framework : (options flask, django, fast api) " framework_name && test "$framework_name" != ""; do
+    until read -r -p "Enter framework (options flask, django, fast api) :" framework_name && test "$framework_name" != ""; do
         continue
     done    
+
     read -p "Would like to specify framework version (Y/N): " confirm  
     if [[ "$confirm" =~ ^([yY][eE][sS]|[yY])$ ]]
     then
         read -p "Enter $framework_name version : " framework_version
     fi    
-    read -p "Enter database : (options mysql, postgresql, mongodb) " database
 
+    until read -r -p "Enter database (options mysql, postgresql, mongodb) :" database && test "$database" != ""; do
+        continue
+    done
     
 }
 
