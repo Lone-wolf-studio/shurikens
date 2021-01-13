@@ -11,8 +11,13 @@ mysql_password="root"
 
 # function to get project name, framework name, database name from user input
 function get_details_from_user(){
-    read -p "Enter Projectname : " project_name
-    read -p "Enter framework : (options flask, django, fast api) " framework_name
+    until read -r -p "Enter Projectname : " project_name && test "$project_name" != ""; do
+        continue
+    done
+     
+    until read -r -p "Enter framework : (options flask, django, fast api) " framework_name && test "$framework_name" != ""; do
+        continue
+    done    
     read -p "Would like to specify framework version (Y/N): " confirm  
     if [[ "$confirm" =~ ^([yY][eE][sS]|[yY])$ ]]
     then
@@ -22,22 +27,6 @@ function get_details_from_user(){
 
     
 }
-
-# helper description which will give instructions to run the script
-function usage_instruction(){
-    echo "bash shurikens.sh -f <framework_name> -p <project_name> -d <database_name>"
-    echo "database options are mysql, postgresql, mongodb make sure give the same name after -d" 
-    }
-
-while getopts ":f:fv:p:d:" arg; do
-    case $arg in
-        f) frame_work=$OPTARG;;
-        p) project_name=$OPTARG;;
-        d) database=$OPTARG;;
-        0) orm=$OPTARG;;
-        fv) frame_work_version=$OPTARG;;
-    esac
-done
 
 environment_variable="env"
 env_name="${project_name}${environment_variable}"
@@ -211,15 +200,10 @@ function create_helper_bash_scripts(){
 
 
 function main(){
-    if  [ ! "$frame_work" ] || [ ! "$project_name" ] || [ ! "$database" ] 
-    then
-        usage_instruction
-        exit 1
-    fi    
-
+    get_details_from_user
     create_virtualenvironment 
     export_bash_variables
-    case $frame_work in
+    case $framework_name in
         django)
             install_django
             create_django_project
