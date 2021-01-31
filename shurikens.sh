@@ -40,6 +40,7 @@ echo "${project_settings_path}"
 
 # function to create virtualenvironment
 function create_virtualenvironment(){
+    echo "env name is ${env_name}"
     echo "${blue_text}creating virtual environment $env_name"
     (cd $HOME ; virtualenv -p python3 ${env_name})
 }
@@ -194,13 +195,17 @@ function create_docker_file_and_compose_file(){
 }
 
 function create_requirements_dot_txt_file(){
-    (cd $HOME/${project_name} ; echo "pip3 freeze" > requirements.txt)
+    (cd $HOME/${project_name} ; pip3 freeze > requirements.txt)
 }
 
 function create_helper_bash_scripts(){
     cp $PWD/files/flask_files/helper-bash-scripts $HOME/${project_name}/
 }    
 
+# function to create git repositories
+function create_git_repository(){
+    (cd $HOME/${project_name} ; git init)
+}
 
 function main(){
     get_details_from_user
@@ -214,6 +219,8 @@ function main(){
             create_database
             django_database_migrate
             generic_supporting_packages
+            create_requirements_dot_txt_file
+            create_git_repository
             ;;
         flask)
             install_flask
@@ -223,10 +230,12 @@ function main(){
             generic_supporting_packages
             create_requirements_dot_txt_file
             create_docker_file
+            create_git_repository
             ;;    
         fastapi)
             install_fastapi    
             generic_supporting_packages
+            create_git_repository
     esac
     }
 
